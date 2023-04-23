@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: svc-nombre-del-servicio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svc-nombre-del-servicio
+  template:
+    metadata:
+      labels:
+        app: svc-nombre-del-servicio
+    spec:
+      containers:
+        - name: backend
+          image: okteto.dev/svc-nombre-del-servicio
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: env-config
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_SECRET
+          ports:
+            - containerPort: 3000
+          #readinessProbe:
+           # httpGet:
+            #  path: /health
+             # port: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: svc-nombre-del-servicio
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

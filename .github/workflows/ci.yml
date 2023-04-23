@@ -1,0 +1,53 @@
+name: Integration
+
+env:
+  DB_NAME: ${{ vars.DB_NAME }}
+  DB_HOST: ${{ vars.DB_HOST }}
+  DB_PORT: ${{ vars.DB_PORT }}
+  DB_USER: ${{ vars.DB_USER }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ '*' ]
+jobs:
+    integration:
+        runs-on: ubuntu-latest
+        environment: test
+        container: node:alpine
+        services:
+          postgres:
+            image: postgres
+            env:
+              POSTGRES_USER: ${{ vars.DB_USER }}
+              POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+              POSTGRES_DB: ${{ vars.DB_NAME }}
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
+            ports:
+              - ${{ vars.DB_PORT }}:${{ vars.DB_PORT }}
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                fetch-depth: 1
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 'latest'
+            - name: Install dependencies
+              run: npm install
+            - name: Run Lint
+              run: npm run lint
+            - name: Run Unit Tests
+              run: npm test
+            - name: Run Funcional Tests
+              run: npm run test:e2e
+            - name: Generate Coverage
+              run: npm run test:cov
+            - name: Upload Coverage
+              uses: codecov/codecov-action@v3
