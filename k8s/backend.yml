@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: backend-deployment
   labels:
-    app: svc-nombre-del-servicio
+    app: svc-metrics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: svc-nombre-del-servicio
+      app: svc-metrics
   template:
     metadata:
       labels:
-        app: svc-nombre-del-servicio
+        app: svc-metrics
     spec:
       containers:
         - name: backend
-          image: okteto.dev/svc-nombre-del-servicio
+          image: okteto.dev/svc-metrics
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -41,7 +41,7 @@ metadata:
   name: backend-service
 spec:
   selector:
-    app: svc-nombre-del-servicio
+    app: svc-metrics
   ports:
     - protocol: TCP
       port: 80

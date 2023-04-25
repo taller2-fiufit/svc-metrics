@@ -1,4 +1,4 @@
-name: svc-nombre-del-servicio
+name: svc-metrics
 
 # The build section defines how to build the images of your development environment
 # More info: https://www.okteto.com/docs/reference/manifest/#build
@@ -14,7 +14,7 @@ build:
 # The deploy section defines how to deploy your development environment
 # More info: https://www.okteto.com/docs/reference/manifest/#deploy
 deploy:
-  - okteto build -t okteto.dev/svc-nombre-del-servicio
+  - okteto build -t okteto.dev/svc-metrics
   - kubectl delete secret "secrets" || true
   - kubectl create secret generic "secrets" --from-literal="JWT_SECRET"="${JWT_SECRET}"
   - kubectl apply -f k8s
