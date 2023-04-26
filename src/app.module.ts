@@ -6,6 +6,7 @@ import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './config/typeorm.config';
 import { ConsumerModule } from './consumer/consumer.module';
+import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConsumerModule } from './consumer/consumer.module';
       useClass: TypeOrmConfigService,
     }),
     ConsumerModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [
