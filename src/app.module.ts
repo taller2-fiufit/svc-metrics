@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './config/typeorm.config';
+import { ConsumerModule } from './consumer/consumer.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { TypeOrmConfigService } from './config/typeorm.config';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
-    ,
+    ConsumerModule,
   ],
   controllers: [AppController],
   providers: [
