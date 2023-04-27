@@ -1,32 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: metrics-backend-deployment
   labels:
-    app: svc-nombre-del-servicio
+    app: svc-metrics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: svc-nombre-del-servicio
+      app: svc-metrics
   template:
     metadata:
       labels:
-        app: svc-nombre-del-servicio
+        app: svc-metrics
     spec:
       containers:
-        - name: backend
-          image: okteto.dev/svc-nombre-del-servicio
+        - name: metrics-backend
+          image: okteto.dev/svc-metrics
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: env-config
+                name: metrics-env-config
           env:
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: secrets
                   key: JWT_SECRET
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_SECRET_ACCESS_KEY
           ports:
             - containerPort: 3000
           #readinessProbe:
@@ -38,10 +48,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: metrics-backend-service
 spec:
   selector:
-    app: svc-nombre-del-servicio
+    app: svc-metrics
   ports:
     - protocol: TCP
       port: 80

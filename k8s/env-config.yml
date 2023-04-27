@@ -1,14 +1,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-config
+  name: metrics-env-config
   labels:
-    app: svc-nombre-del-servicio
+    app: svc-metrics
 data:
-  DB_NAME: nombre-del-servicio_db
+  DB_NAME: metrics_db
   DB_USER: postgres
   DB_PASSWORD: postgres
   DB_HOST: postgres
   DB_PORT: "5432"
   POSTGRES_HOST_AUTH_METHOD: trust
-  POSTGRES_DB: nombre-del-servicio_db
+  POSTGRES_DB: metrics_db
+  AWS_REGION: us-east-1
+  QUEUE_NAME: MetricsQueue_Production
+  QUEUE_URL: https://sqs.us-east-1.amazonaws.com/228452873325/MetricsQueue_Production
