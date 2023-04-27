@@ -12,3 +12,6 @@ data:
   DB_PORT: "5432"
   POSTGRES_HOST_AUTH_METHOD: trust
   POSTGRES_DB: metrics_db
+  AWS_REGION: us-east-1
+  QUEUE_NAME: MetricsQueue_Production
+  QUEUE_URL: https://sqs.us-east-1.amazonaws.com/228452873325/MetricsQueue_Production
