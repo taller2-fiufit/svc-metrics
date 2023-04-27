@@ -14,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: backend-service
+                name: metrics-backend-service
                 port:
                   number: 80

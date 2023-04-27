@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-config
+  name: metrics-env-config
   labels:
     app: svc-metrics
 data:
