@@ -11,4 +11,13 @@ export class MetricsService {
         const metric = this.repo.create({service, command, timeStamp})
         this.repo.save(metric);
     }
+
+    findUsersMetrics() {
+        return this.repo.createQueryBuilder()
+            .select('command')
+            .addSelect( "COUNT('commands')" )
+            .where('service = :service', { service: 'users' })
+            .groupBy('command')
+            .execute();
+    }
 }
