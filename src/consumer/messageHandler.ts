@@ -16,16 +16,20 @@ const queueName = configService.get<string>('QUEUE_NAME');
 
 @Injectable()
 export class MessageHandler {
-    constructor(private metricsService: MetricsService) {}
-    @SqsMessageHandler(queueName, false)
-    async handleMessage(message: AWS.SQS.Message) {
-        let rawMessage = JSON.parse(message.Body);
-        const metric = this.parseMetric(rawMessage)
-        this.metricsService.create(metric.service, metric.command, metric.timeStamp);
-    }
+  constructor(private metricsService: MetricsService) {}
+  @SqsMessageHandler(queueName, false)
+  async handleMessage(message: AWS.SQS.Message) {
+    const rawMessage = JSON.parse(message.Body);
+    const metric = this.parseMetric(rawMessage);
+    this.metricsService.create(
+      metric.service,
+      metric.command,
+      metric.timeStamp,
+    );
+  }
 
-    private parseMetric(message: any): CreateMetricDto {
-      message.timeStamp = new Date(message.timeStamp).toISOString();
-      return plainToClass(CreateMetricDto, message);
-    }
+  private parseMetric(message: any): CreateMetricDto {
+    message.timeStamp = new Date(message.timeStamp).toISOString();
+    return plainToClass(CreateMetricDto, message);
+  }
 }

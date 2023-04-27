@@ -29,4 +29,4 @@ import { MetricsModule } from './metrics/metrics.module';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -19,6 +19,6 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   providers: [MetricsService],
-  controllers: [MetricsController]
+  controllers: [MetricsController],
 })
 export class MetricsModule {}

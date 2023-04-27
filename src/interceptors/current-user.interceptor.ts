@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor {
-  constructor() {}
-
   async intercept(
     context: ExecutionContext,
     handler: CallHandler,

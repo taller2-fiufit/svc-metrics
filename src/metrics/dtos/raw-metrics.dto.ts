@@ -1,4 +1,4 @@
 export class RawMetricsDto {
-    command: string;
-    count: number;
+  command: string;
+  count: number;
 }

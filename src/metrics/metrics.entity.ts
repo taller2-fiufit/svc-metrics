@@ -1,26 +1,21 @@
-import {
-    AfterInsert,
-    Column,
-    Entity,
-    PrimaryGeneratedColumn,
-  } from 'typeorm';
-  
-  @Entity()
-  export class Metric {
-    @PrimaryGeneratedColumn()
-    id: number;
+import { AfterInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-    @Column()
-    timeStamp: Date;
+@Entity()
+export class Metric {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    service: string;
+  @Column()
+  timeStamp: Date;
 
-    @Column()
-    command: string;
+  @Column()
+  service: string;
 
-    @AfterInsert()
-    logInsert() {
-      console.log('Insertada Metrica:', this);
-    }
+  @Column()
+  command: string;
+
+  @AfterInsert()
+  logInsert() {
+    console.log('Insertada Metrica:', this);
   }
+}

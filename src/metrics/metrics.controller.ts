@@ -6,11 +6,11 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 
 @Controller('metrics')
 export class MetricsController {
-    constructor (private metricsService: MetricsService) { }
+  constructor(private metricsService: MetricsService) {}
 
-    @Get('users')
-    @Serialize(UsersMetricsDto)
-    findUsersMetrics() {
-        return this.metricsService.findUsersMetrics();
-    }
+  @Get('users')
+  @Serialize(UsersMetricsDto)
+  findUsersMetrics() {
+    return this.metricsService.findUsersMetrics();
+  }
 }
