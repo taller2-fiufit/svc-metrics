@@ -1,7 +1,7 @@
 {
-  "name": "svc-nombre-del-servicio",
+  "name": "svc-metrics",
   "version": "1.0.0",
-  "description": "API de Nombre del Servicio",
+  "description": "API de Metricas",
   "author": "Kinetix",
   "private": true,
   "license": "UNLICENSED",

@@ -34,8 +34,8 @@ export class ConsumerModule {
         var myConfig = new AWS.Config();
         myConfig.update({
             region:  this.configService.get('AWS_REGION'),
-            accessKeyId: this.configService.get('ACCESS_KEY_ID'),
-            secretAccessKey: this.configService.get('SECRET_ACCESS_KEY'),
+            accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+            secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
         });
     }
 }

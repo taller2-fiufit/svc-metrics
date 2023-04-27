@@ -11,8 +11,4 @@ export class MetricsService {
         const metric = this.repo.create({service, command, timeStamp})
         this.repo.save(metric);
     }
-
-    ping() {
-        console.log("PING");
-    }
 }
