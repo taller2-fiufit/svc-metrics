@@ -20,5 +20,5 @@ jobs:
         - name: Deploy
           uses: okteto/pipeline@latest
           with:
-            name: svc-nombre-del-servicio
+            name: svc-metrics
             timeout: 15m
