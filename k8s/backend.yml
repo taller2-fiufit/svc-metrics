@@ -17,7 +17,7 @@ spec:
       containers:
         - name: metrics-backend
           image: okteto.dev/svc-metrics
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: metrics-env-config
