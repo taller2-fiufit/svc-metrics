@@ -3,6 +3,7 @@ import { Metric } from './metrics.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
+import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
 import { RawMetricsDto } from './dtos/raw-metrics.dto';
 
 @Injectable()
@@ -25,6 +26,17 @@ export class MetricsService {
     return this.mapToUsersDto(usersMetricsRaw);
   }
 
+  async findTrainingsMetrics() {
+    const trainingsMetricsRaw: RawMetricsDto[] = await this.repo
+      .createQueryBuilder()
+      .select('command')
+      .addSelect("COUNT('commands')")
+      .where('service = :service', { service: 'trainings' })
+      .groupBy('command')
+      .execute();
+    return this.mapToTrainingsDto(trainingsMetricsRaw);
+  }
+
   private mapToUsersDto(usersMetricsRaw: RawMetricsDto[]): UsersMetricsDto {
     const usersMetricsDto = new UsersMetricsDto();
     usersMetricsDto.blockedUsers =
@@ -40,5 +52,12 @@ export class MetricsService {
     usersMetricsDto.signinsWithMail =
       usersMetricsRaw.find((e) => e.command == 'signinsWithMail')?.count || 0;
     return usersMetricsDto;
+  }
+
+  private mapToTrainingsDto(usersMetricsRaw: RawMetricsDto[]): TrainingsMetricsDto {
+    const trainingsMetricsDto = new TrainingsMetricsDto();
+    trainingsMetricsDto.trainingsCreated =
+      usersMetricsRaw.find((e) => e.command == 'trainingCreated')?.count || 0;
+    return trainingsMetricsDto;
   }
 }
