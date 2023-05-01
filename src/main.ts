@@ -10,10 +10,10 @@ async function bootstrap() {
 
   // TODO: Especificar para el caso concreto
   const config = new DocumentBuilder()
-    .setTitle('Nombre del Servicio')
-    .setDescription('Documentación de API Nombre del Servicio')
+    .setTitle('Metricas')
+    .setDescription('Documentación de API Metricas')
     .setVersion('1.0')
-    .addTag('nombre_del_servicio')
+    .addTag('metrics')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

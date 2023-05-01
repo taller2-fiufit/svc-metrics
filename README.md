@@ -10,8 +10,8 @@
 
 [Kinetix](https://github.com/taller2-fiufit) es una aplicación para la gestión de actividades físicas.
 
-## svc-xxx
-Servicio para la gestión de xxx
+## svc-metrics
+Servicio para la gestión de metricas.
 
 ## Instalación
 Revisar el .env.example para ver las configuraciones necesarias.

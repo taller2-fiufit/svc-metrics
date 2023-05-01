@@ -2,10 +2,11 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './config/typeorm.config';
+import { ConsumerModule } from './consumer/consumer.module';
+import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { TypeOrmConfigService } from './config/typeorm.config';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
-    UsersModule,
+    ConsumerModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [
