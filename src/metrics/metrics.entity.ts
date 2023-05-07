@@ -6,7 +6,7 @@ export class Metric {
   id: number;
 
   @Column()
-  timeStamp: Date;
+  timestamp: Date;
 
   @Column()
   service: string;
