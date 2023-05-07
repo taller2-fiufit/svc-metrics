@@ -24,12 +24,12 @@ export class MessageHandler {
     this.metricsService.create(
       metric.service,
       metric.command,
-      metric.timeStamp,
+      metric.timestamp,
     );
   }
 
   private parseMetric(message: any): CreateMetricDto {
-    message.timeStamp = new Date(message.timeStamp).toISOString();
+    message.timestamp = new Date(message.timestamp).toISOString();
     return plainToClass(CreateMetricDto, message);
   }
 }
