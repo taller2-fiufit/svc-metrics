@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
 import { RawMetricsDto } from './dtos/raw-metrics.dto';
+import { CreateMetricDto } from './dtos/create-metric.dto';
 import { isValid } from 'date-fns';
 
 @Injectable()
@@ -29,6 +30,21 @@ export class MetricsService {
       .groupBy('command')
       .execute();
     return this.mapToUsersDto(usersMetricsRaw);
+  }
+
+  async findUsersMetricsEvents(command: string, from: Date, to: Date) {
+    const validFrom = isValid(from) ? from : new Date('1970-01-01');
+    const validTo = isValid(to) ? to : new Date('9999-01-01');
+
+    const events: CreateMetricDto[] = await this.repo
+      .createQueryBuilder()
+      .select('timestamp')
+      .where('service = :service', { service: 'users' })
+      .andWhere('command = :command', { command: command })
+      .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
+      .andWhere('timestamp >= :fromTimestamp', { fromTimestamp: validFrom })
+      .execute();
+    return events;
   }
 
   async findTrainingsMetrics(from: Date, to: Date) {
