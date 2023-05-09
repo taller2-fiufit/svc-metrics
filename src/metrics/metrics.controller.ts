@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { MetricsService } from './metrics.service';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
@@ -12,6 +12,15 @@ export class MetricsController {
   @Serialize(UsersMetricsDto)
   findUsersMetrics(@Query('from') from: Date, @Query('to') to: Date) {
     return this.metricsService.findUsersMetrics(from, to);
+  }
+
+  @Get('users/events/:command')
+  findUsersEvents(
+    @Query('from') from: Date,
+    @Query('to') to: Date,
+    @Param('command') command: string,
+  ) {
+    return this.metricsService.findUsersMetricsEvents(command, from, to);
   }
 
   @Get('trainings')
