@@ -14,6 +14,9 @@ export class Metric {
   @Column()
   command: string;
 
+  @Column()
+  attrs: string;
+
   @AfterInsert()
   logInsert() {
     console.log('Insertada Metrica:', this);
