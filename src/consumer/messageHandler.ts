@@ -25,6 +25,7 @@ export class MessageHandler {
       metric.service,
       metric.command,
       metric.timestamp,
+      metric.attrs,
     );
   }
 

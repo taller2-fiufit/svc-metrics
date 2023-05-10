@@ -12,8 +12,8 @@ import { isValid } from 'date-fns';
 export class MetricsService {
   constructor(@InjectRepository(Metric) private repo: Repository<Metric>) {}
 
-  create(service: string, command: string, timestamp: Date) {
-    const metric = this.repo.create({ service, command, timestamp });
+  create(service: string, command: string, timestamp: Date, attrs: string) {
+    const metric = this.repo.create({ service, command, timestamp, attrs });
     this.repo.save(metric);
   }
 
@@ -38,7 +38,7 @@ export class MetricsService {
 
     const events: CreateMetricDto[] = await this.repo
       .createQueryBuilder()
-      .select('timestamp')
+      .select(['timestamp', 'attrs'])
       .where('service = :service', { service: 'users' })
       .andWhere('command = :command', { command: command })
       .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
