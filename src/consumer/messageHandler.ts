@@ -21,16 +21,23 @@ export class MessageHandler {
   async handleMessage(message: AWS.SQS.Message) {
     const rawMessage = JSON.parse(message.Body);
     const metric = this.parseMetric(rawMessage);
-    this.metricsService.create(
-      metric.service,
-      metric.command,
-      metric.timestamp,
-      metric.attrs,
-    );
+    if (metric) {
+      this.metricsService.create(
+        metric.service,
+        metric.command,
+        metric.timestamp,
+        metric.attrs,
+      );
+    }
   }
 
   private parseMetric(message: any): CreateMetricDto {
-    message.timestamp = new Date(message.timestamp).toISOString();
+    try {
+      JSON.parse(JSON.stringify(message.attrs));
+      message.timestamp = new Date(message.timestamp).toISOString();
+    } catch {
+      return null;
+    }
     return plainToClass(CreateMetricDto, message);
   }
 }
