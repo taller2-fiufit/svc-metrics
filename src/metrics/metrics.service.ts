@@ -47,7 +47,12 @@ export class MetricsService {
     return this.mapToTrainingsDto(trainingsMetricsRaw);
   }
 
-  async findMetricsEvents(service: string, command: string, from: Date, to: Date) {
+  async findMetricsEvents(
+    service: string,
+    command: string,
+    from: Date,
+    to: Date,
+  ) {
     const validFrom = isValid(from) ? from : new Date('1970-01-01');
     const validTo = isValid(to) ? to : new Date('9999-01-01');
 
@@ -59,7 +64,7 @@ export class MetricsService {
       .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
       .andWhere('timestamp >= :fromTimestamp', { fromTimestamp: validFrom })
       .execute();
-    events.forEach((e) => e.attrs = JSON.parse(e.attrs));
+    events.forEach((e) => (e.attrs = JSON.parse(e.attrs)));
     return events;
   }
 
