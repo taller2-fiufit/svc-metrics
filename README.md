@@ -2,9 +2,9 @@
   <a href="http://fi.uba.ar/" target="blank"><a href="https://ibb.co/sg2mHKD"><img src="https://i.ibb.co/NFsVS9k/Isotipo.png" alt="Kinetix Logo" width="200" border="0" align="left"/></a></a>
 </p>
 
-[![Deploy](https://github.com/taller2-fiufit/svc-users/actions/workflows/cd.yml/badge.svg)](https://github.com/taller2-fiufit/svc-users/actions/workflows/cd.yml)
+[![Deploy](https://github.com/taller2-fiufit/svc-metrics/actions/workflows/cd.yml/badge.svg)](https://github.com/taller2-fiufit/svc-metrics/actions/workflows/cd.yml)
 
-[![codecov](https://codecov.io/github/taller2-fiufit/svc-users/branch/main/graph/badge.svg?token=5XUJID246G)](https://codecov.io/github/taller2-fiufit/svc-users)
+[![codecov](https://codecov.io/github/taller2-fiufit/svc-metrics/branch/main/graph/badge.svg?token=GAngU4HKlD)](https://codecov.io/github/taller2-fiufit/svc-metrics)
 
 # Kinetix
 

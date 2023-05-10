@@ -35,6 +35,11 @@ export class MetricsController {
     @Query('to') to: Date,
     @Param('command') command: string,
   ) {
-    return this.metricsService.findMetricsEvents('trainings', command, from, to);
+    return this.metricsService.findMetricsEvents(
+      'trainings',
+      command,
+      from,
+      to,
+    );
   }
 }
