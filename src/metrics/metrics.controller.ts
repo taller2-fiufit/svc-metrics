@@ -20,12 +20,21 @@ export class MetricsController {
     @Query('to') to: Date,
     @Param('command') command: string,
   ) {
-    return this.metricsService.findUsersMetricsEvents(command, from, to);
+    return this.metricsService.findMetricsEvents('users', command, from, to);
   }
 
   @Get('trainings')
   @Serialize(TrainingsMetricsDto)
   findTrainingsMetrics(@Query('from') from: Date, @Query('to') to: Date) {
     return this.metricsService.findTrainingsMetrics(from, to);
+  }
+
+  @Get('trainings/events/:command')
+  findTrainingsEvents(
+    @Query('from') from: Date,
+    @Query('to') to: Date,
+    @Param('command') command: string,
+  ) {
+    return this.metricsService.findMetricsEvents('trainings', command, from, to);
   }
 }
