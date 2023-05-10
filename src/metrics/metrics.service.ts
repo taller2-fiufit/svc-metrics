@@ -32,21 +32,6 @@ export class MetricsService {
     return this.mapToUsersDto(usersMetricsRaw);
   }
 
-  async findUsersMetricsEvents(command: string, from: Date, to: Date) {
-    const validFrom = isValid(from) ? from : new Date('1970-01-01');
-    const validTo = isValid(to) ? to : new Date('9999-01-01');
-
-    const events: CreateMetricDto[] = await this.repo
-      .createQueryBuilder()
-      .select(['timestamp', 'attrs'])
-      .where('service = :service', { service: 'users' })
-      .andWhere('command = :command', { command: command })
-      .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
-      .andWhere('timestamp >= :fromTimestamp', { fromTimestamp: validFrom })
-      .execute();
-    return events;
-  }
-
   async findTrainingsMetrics(from: Date, to: Date) {
     const validFrom = isValid(from) ? from : new Date('1970-01-01');
     const validTo = isValid(to) ? to : new Date('9999-01-01');
@@ -60,6 +45,21 @@ export class MetricsService {
       .groupBy('command')
       .execute();
     return this.mapToTrainingsDto(trainingsMetricsRaw);
+  }
+
+  async findMetricsEvents(service: string, command: string, from: Date, to: Date) {
+    const validFrom = isValid(from) ? from : new Date('1970-01-01');
+    const validTo = isValid(to) ? to : new Date('9999-01-01');
+
+    const events: CreateMetricDto[] = await this.repo
+      .createQueryBuilder()
+      .select(['timestamp', 'attrs'])
+      .where('service = :service', { service: service })
+      .andWhere('command = :command', { command: command })
+      .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
+      .andWhere('timestamp >= :fromTimestamp', { fromTimestamp: validFrom })
+      .execute();
+    return events;
   }
 
   private mapToUsersDto(usersMetricsRaw: RawMetricsDto[]): UsersMetricsDto {
