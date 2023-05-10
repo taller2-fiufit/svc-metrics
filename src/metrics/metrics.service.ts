@@ -59,6 +59,7 @@ export class MetricsService {
       .andWhere('timestamp <= :toTimestamp', { toTimestamp: validTo })
       .andWhere('timestamp >= :fromTimestamp', { fromTimestamp: validFrom })
       .execute();
+    events.forEach((e) => e.attrs = JSON.parse(e.attrs));
     return events;
   }
 
