@@ -5,4 +5,8 @@ export class TrainingsMetricsDto {
   @Expose()
   @ApiProperty()
   trainingsCreated: number;
+
+  @Expose()
+  @ApiProperty()
+  trainingsFavorited: number;
 }

@@ -10,7 +10,7 @@ import { isValid } from 'date-fns';
 
 @Injectable()
 export class MetricsService {
-  constructor(@InjectRepository(Metric) private repo: Repository<Metric>) {}
+  constructor(@InjectRepository(Metric) private repo: Repository<Metric>) { }
 
   create(service: string, command: string, timestamp: Date, attrs: string) {
     const metric = this.repo.create({ service, command, timestamp, attrs });
@@ -91,6 +91,8 @@ export class MetricsService {
     const trainingsMetricsDto = new TrainingsMetricsDto();
     trainingsMetricsDto.trainingsCreated =
       usersMetricsRaw.find((e) => e.command == 'trainingCreated')?.count || 0;
+    trainingsMetricsDto.trainingsFavorited =
+      usersMetricsRaw.find((e) => e.command == 'trainingFavorited')?.count || 0;
     return trainingsMetricsDto;
   }
 }
