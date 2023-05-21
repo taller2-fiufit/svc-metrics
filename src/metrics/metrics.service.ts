@@ -10,7 +10,7 @@ import { isValid } from 'date-fns';
 
 @Injectable()
 export class MetricsService {
-  constructor(@InjectRepository(Metric) private repo: Repository<Metric>) { }
+  constructor(@InjectRepository(Metric) private repo: Repository<Metric>) {}
 
   create(service: string, command: string, timestamp: Date, attrs: string) {
     const metric = this.repo.create({ service, command, timestamp, attrs });
