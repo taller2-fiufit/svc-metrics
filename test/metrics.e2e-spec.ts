@@ -49,7 +49,7 @@ describe('Sistema de Métricas', () => {
       });
   });
 
-  it('las métricas inician en 0', async () => {
+  it('se puede filtrar por comando en trainings', async () => {
     const metric = metricsRepository.create({
       timestamp: new Date().toISOString(),
       service: 'trainings',
