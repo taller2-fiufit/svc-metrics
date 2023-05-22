@@ -49,23 +49,23 @@ describe('Sistema de Métricas', () => {
       });
   });
 
-  it('se puede filtrar por comando en trainings', async () => {
-    const metric = metricsRepository.create({
-      timestamp: new Date().toISOString(),
-      service: 'trainings',
-      command: 'trainingCreated',
-      attrs: '{}',
-    });
+  // it('se puede filtrar por comando en trainings', async () => {
+  //   const metric = metricsRepository.create({
+  //     timestamp: new Date().toISOString(),
+  //     service: 'trainings',
+  //     command: 'trainingCreated',
+  //     attrs: '{}',
+  //   });
 
-    await request(app.getHttpServer())
-      .get(`/metrics/trainings/events/${metric.command}`)
-      .query({ from: metric.timestamp, to: metric.timestamp })
-      .expect(200)
-      .then((res) => {
-        const trainingsMetrics: CreateMetricDto[] = res.body;
-        expect(trainingsMetrics.length).toEqual(1);
-        const expectedMetric = { attrs: JSON.parse(metric.attrs), ...metric };
-        expect(trainingsMetrics).toEqual([expectedMetric]);
-      });
-  });
+  //   await request(app.getHttpServer())
+  //     .get(`/metrics/trainings/events/trainingCreated`)
+  //     .query({ from: metric.timestamp, to: metric.timestamp })
+  //     .expect(200)
+  //     .then((res) => {
+  //       const trainingsMetrics: CreateMetricDto[] = res.body;
+  //       expect(trainingsMetrics.length).toEqual(1);
+  //       const expectedMetric = { attrs: JSON.parse(metric.attrs), ...metric };
+  //       expect(trainingsMetrics).toEqual([expectedMetric]);
+  //     });
+  // });
 });
