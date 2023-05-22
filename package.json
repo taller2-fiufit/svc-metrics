@@ -16,9 +16,9 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "test": "cross-env NODE_ENV=test jest --config ./test/jest-unit.json",
     "test:watch": "cross-env NODE_ENV=test jest --config ./test/jest-unit.json --watch --maxWorkers=1",
-    "test:cov": "cross-env NODE_ENV=test jest --coverage --config ./test/jest-unit.json && cross-env NODE_ENV=test npm run typeorm migration:run && cross-env NODE_ENV=test jest --coverage --config ./test/jest-e2e.json --maxWorkers=1 --detectOpenHandles --passWithNoTests",
+    "test:cov": "cross-env NODE_ENV=test jest --coverage --config ./test/jest-unit.json && cross-env NODE_ENV=test npm run typeorm migration:run && cross-env NODE_ENV=test jest --coverage --config ./test/jest-e2e.json --maxWorkers=1 --detectOpenHandles",
     "test:debug": "cross-env NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --config ./test/jest-unit.json --runInBand",
-    "test:e2e": "cross-env NODE_ENV=test npm run typeorm migration:run && cross-env NODE_ENV=test jest --config ./test/jest-e2e.json --maxWorkers=1 --detectOpenHandles --passWithNoTests",
+    "test:e2e": "cross-env NODE_ENV=test npm run typeorm migration:run && cross-env NODE_ENV=test jest --config ./test/jest-e2e.json --maxWorkers=1 --detectOpenHandles",
     "typeorm": "typeorm-ts-node-commonjs -d src/data-source.ts"
   },
   "dependencies": {
