@@ -16,7 +16,8 @@ async function bootstrap() {
     .addTag('metrics')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  const options = { jsonDocumentUrl: 'openapi.json' };
+  SwaggerModule.setup('docs', app, document, options);
 
   await app.listen(3000);
 }
