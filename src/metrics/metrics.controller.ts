@@ -3,8 +3,10 @@ import { MetricsService } from './metrics.service';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('metrics')
+@ApiTags('Metrics')
 export class MetricsController {
   constructor(private metricsService: MetricsService) {}
 
