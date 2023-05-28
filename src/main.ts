@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('Metricas')
     .setDescription('Documentación de API Metricas')
     .setVersion('1.0')
-    .addTag('metrics')
+    .addTag('Metrics')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   const options = { jsonDocumentUrl: 'openapi.json' };

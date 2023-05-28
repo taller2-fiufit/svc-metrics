@@ -8,7 +8,6 @@ import { Repository } from 'typeorm';
 import { Metric } from '../src/metrics/metrics.entity';
 import { AppModule } from '../src/app.module';
 import { UsersMetricsDto } from '../src/metrics/dtos/users-metrics.dto';
-import { CreateMetricDto } from '../src/metrics/dtos/create-metric.dto';
 import { TrainingsMetricsDto } from '../src/metrics/dtos/trainings-metrics.dto';
 
 describe('Sistema de Métricas', () => {
@@ -48,24 +47,4 @@ describe('Sistema de Métricas', () => {
         expect(trainingsMetrics.trainingsFavorited).toEqual(0);
       });
   });
-
-  // it('se puede filtrar por comando en trainings', async () => {
-  //   const metric = metricsRepository.create({
-  //     timestamp: new Date().toISOString(),
-  //     service: 'trainings',
-  //     command: 'trainingCreated',
-  //     attrs: '{}',
-  //   });
-
-  //   await request(app.getHttpServer())
-  //     .get(`/metrics/trainings/events/trainingCreated`)
-  //     .query({ from: metric.timestamp, to: metric.timestamp })
-  //     .expect(200)
-  //     .then((res) => {
-  //       const trainingsMetrics: CreateMetricDto[] = res.body;
-  //       expect(trainingsMetrics.length).toEqual(1);
-  //       const expectedMetric = { attrs: JSON.parse(metric.attrs), ...metric };
-  //       expect(trainingsMetrics).toEqual([expectedMetric]);
-  //     });
-  // });
 });
