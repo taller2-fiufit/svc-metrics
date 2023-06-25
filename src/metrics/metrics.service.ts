@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Metric } from './metrics.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,8 +12,11 @@ import { isValid } from 'date-fns';
 export class MetricsService {
   constructor(@InjectRepository(Metric) private repo: Repository<Metric>) {}
 
+  private readonly logger = new Logger(MetricsService.name);
+
   create(service: string, command: string, timestamp: Date, attrs: string) {
     const metric = this.repo.create({ service, command, timestamp, attrs });
+    this.logger.log(`Se crea metrica ${metric}`);
     this.repo.save(metric);
   }
 

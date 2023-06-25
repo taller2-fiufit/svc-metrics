@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Param } from '@nestjs/common';
+import { Controller, Get, Query, Param, Logger } from '@nestjs/common';
 import { MetricsService } from './metrics.service';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
@@ -10,9 +10,12 @@ import { ApiTags } from '@nestjs/swagger';
 export class MetricsController {
   constructor(private metricsService: MetricsService) {}
 
+  private readonly logger = new Logger(MetricsController.name);
+
   @Get('users')
   @Serialize(UsersMetricsDto)
   findUsersMetrics(@Query('from') from: Date, @Query('to') to: Date) {
+    this.logger.log('GET /metrics/users');
     return this.metricsService.findUsersMetrics(from, to);
   }
 
@@ -22,12 +25,14 @@ export class MetricsController {
     @Query('to') to: Date,
     @Param('command') command: string,
   ) {
+    this.logger.log(`GET /metrics/users/events/${command}`);
     return this.metricsService.findMetricsEvents('users', command, from, to);
   }
 
   @Get('trainings')
   @Serialize(TrainingsMetricsDto)
   findTrainingsMetrics(@Query('from') from: Date, @Query('to') to: Date) {
+    this.logger.log('GET /metrics/trainings');
     return this.metricsService.findTrainingsMetrics(from, to);
   }
 
@@ -37,6 +42,7 @@ export class MetricsController {
     @Query('to') to: Date,
     @Param('command') command: string,
   ) {
+    this.logger.log(`GET /metrics/trainings/events/${command}`);
     return this.metricsService.findMetricsEvents(
       'trainings',
       command,

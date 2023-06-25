@@ -1,4 +1,4 @@
-import { AfterInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Metric {
@@ -16,9 +16,4 @@ export class Metric {
 
   @Column()
   attrs: string;
-
-  @AfterInsert()
-  logInsert() {
-    console.log('Insertada Metrica:', this);
-  }
 }
