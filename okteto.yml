@@ -1,18 +1,42 @@
 name: svc-metrics
 
+# The build section defines how to build the images of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#build
 build:
+
+  # You can use the following env vars to refer to this image in your deploy commands:
+  #  - OKTETO_BUILD_MAIN_REGISTRY: image registry
+  #  - OKTETO_BUILD_MAIN_REPOSITORY: image repo
+  #  - OKTETO_BUILD_MAIN_IMAGE: image name
+  #  - OKTETO_BUILD_MAIN_SHA: image tag sha256
   main:
     context: .
+    dockerfile: Dockerfile
 
+# The deploy section defines how to deploy your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#deploy
 deploy:
   - okteto build -t okteto.dev/svc-metrics
   - kubectl delete secret "secrets" || true
-  - kubectl create secret generic "secrets"
-    --from-literal="JWT_SECRET"="${JWT_SECRET}"
-    --from-literal="AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}"
-    --from-literal="AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}"
-    --from-literal="GOOGLE_SECRET"="${GOOGLE_SECRET}"
-    --from-literal="SENDGRID_API_KEY"="${SENDGRID_API_KEY}"
-    --from-literal="NEW_RELIC_LICENSE_KEY"="${NEW_RELIC_LICENSE_KEY}"
+  - kubectl create secret generic "secrets" --from-literal="JWT_SECRET"="${JWT_SECRET}" --from-literal="AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" --from-literal="AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" --from-literal="GOOGLE_SECRET"="${GOOGLE_SECRET}" --from-literal="SENDGRID_API_KEY"="${SENDGRID_API_KEY}" --from-literal="NEW_RELIC_LICENSE_KEY"="${NEW_RELIC_LICENSE_KEY}"
   - kubectl apply -f k8s
   - kubectl rollout restart deployment metrics-backend-deployment
+
+# The dependencies section defines other git repositories to be deployed as part of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#dependencies
+# dependencies:
+#   - https://github.com/okteto/sample
+# The dev section defines how to activate a development container
+# More info: https://www.okteto.com/docs/reference/manifest/#dev
+# dev:
+#   sample:
+#     image: okteto/dev:latest
+#     command: bash
+#     workdir: /usr/src/app
+#     sync:
+#       - .:/usr/src/app
+#     environment:
+#       - name=$USER
+#     forward:
+#       - 8080:80
+
