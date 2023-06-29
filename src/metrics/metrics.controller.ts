@@ -1,10 +1,19 @@
-import { Controller, Get, Query, Param, Logger } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Param,
+  Logger,
+  UseGuards,
+} from '@nestjs/common';
 import { MetricsService } from './metrics.service';
 import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { ApiTags } from '@nestjs/swagger';
+import { ApiKeyGuard } from '../guards/apigateway.guard';
 
+@UseGuards(ApiKeyGuard)
 @Controller('metrics')
 @ApiTags('Metrics')
 export class MetricsController {
