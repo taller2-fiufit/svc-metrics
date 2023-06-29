@@ -16,7 +16,9 @@ export class MetricsService {
 
   create(service: string, command: string, timestamp: Date, attrs: string) {
     const metric = this.repo.create({ service, command, timestamp, attrs });
-    this.logger.log(`Se crea metrica. SERVICE: ${metric.service} COMANDO: ${metric.command} - ATTRS: ${metric.attrs}`);
+    this.logger.log(
+      `Se crea metrica. SERVICE: ${metric.service} COMANDO: ${metric.command} - ATTRS: ${metric.attrs}`,
+    );
     this.repo.save(metric);
   }
 
@@ -85,7 +87,7 @@ export class MetricsService {
         ?.count || 0;
     usersMetricsDto.signinsWithMail =
       usersMetricsRaw.find((e) => e.command == 'signinsWithMail')?.count || 0;
-    usersMetricsDto.passwordReseted = 
+    usersMetricsDto.passwordReseted =
       usersMetricsRaw.find((e) => e.command == 'passwordReseted')?.count || 0;
     return usersMetricsDto;
   }
