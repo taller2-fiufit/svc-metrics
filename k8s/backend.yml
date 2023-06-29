@@ -37,6 +37,11 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: AWS_SECRET_ACCESS_KEY
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: NEW_RELIC_LICENSE_KEY
           ports:
             - containerPort: 3000
           readinessProbe:
