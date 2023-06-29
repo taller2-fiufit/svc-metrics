@@ -21,4 +21,8 @@ export class UsersMetricsDto {
   @Expose()
   @ApiProperty()
   blockedUsers: number;
+
+  @Expose()
+  @ApiProperty()
+  passwordReseted: number;
 }
