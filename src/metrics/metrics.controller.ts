@@ -11,7 +11,7 @@ import { UsersMetricsDto } from './dtos/users-metrics.dto';
 import { TrainingsMetricsDto } from './dtos/trainings-metrics.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { ApiTags } from '@nestjs/swagger';
-import { ApiKeyGuard } from '../guards/apigateway.guard';
+import { ApiKeyGuard } from '../guards/apikey.guard';
 
 @UseGuards(ApiKeyGuard)
 @Controller('metrics')
