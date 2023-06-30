@@ -18,7 +18,7 @@ export class ApiKeyGuard implements CanActivate {
       this.logger.debug('Request autorizado por entorno no productivo');
       return true;
     }
-    if (!apikey || apikey != process.env.USERS_API_KEY) {
+    if (!apikey || apikey != process.env.METRICS_API_KEY) {
       this.logger.debug(`Request rechazado - ApiKey: ${apikey}`);
       return false;
     }
