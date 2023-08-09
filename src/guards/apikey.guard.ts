@@ -13,7 +13,7 @@ export class ApiKeyGuard implements CanActivate {
     const apikey = context.switchToHttp().getRequest().headers['x-apikey'];
     if (
       process.env.NODE_ENV == 'development' ||
-      process.env.NODE_ENV == 'test' 
+      process.env.NODE_ENV == 'test'
     ) {
       this.logger.debug('Request autorizado por entorno no productivo');
       return true;
